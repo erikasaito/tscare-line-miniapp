@@ -11,30 +11,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import liff from "@line/liff";
 
-export default defineComponent({
-  data() {
-    return {
-      message: "",
-      error: ""
-    };
-  },
-  mounted() {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID
-      })
-      .then(() => {
-        this.message = "LIFF init succeeded.";
-      })
-      .catch((e: Error) => {
-        this.message = "LIFF init failed.";
-        this.error = `${e}`;
-      });
-  }
+const message = ref("");
+const error = ref("");
+
+onMounted(() => {
+  liff
+    .init({
+      liffId: "https://miniapp.line.me/2008763114-mG22THtj"
+    })
+    .then(() => {
+      message.value = "LIFF init succeeded.";
+    })
+    .catch((e: Error) => {
+      message.value = "LIFF init failed.";
+      error.value = `${e}`;
+    });
 });
 </script>
 
