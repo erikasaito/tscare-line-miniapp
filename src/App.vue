@@ -21,7 +21,7 @@ const error = ref("");
 onMounted(() => {
   liff
     .init({
-      liffId: "https://miniapp.line.me/2008763114-mG22THtj"
+      liffId: "2008763114-mG22THtj"
     })
     .then(() => {
       message.value = "LIFF init succeeded.";
