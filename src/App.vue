@@ -2,6 +2,7 @@
   <div>
     <h1>create-liff-app</h1>
     <p v-if="message">{{ message }}</p>
+    <p v-if="userId">User ID: {{ userId }}</p>
     <p v-if="error">
       <code>{{ error }}</code>
     </p>
@@ -17,13 +18,16 @@ import liff from "@line/liff";
 
 const message = ref("");
 const error = ref("");
+const userId = ref("");
 
 onMounted(() => {
   liff
     .init({
       liffId: "2008763114-mG22THtj"
     })
-    .then(() => {
+    .then(async() => {
+      const profile = await liff.getProfile();
+      userId.value = profile.userId;
       message.value = "LIFF init succeeded.";
     })
     .catch((e: Error) => {
